@@ -1,20 +1,36 @@
+import 'react-native-gesture-handler'
+import './src/styles/global.css';
+
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useFonts, Inter_400Regular, Inter_500Medium, Inter_700Bold } from '@expo-google-fonts/inter';
+
+import { Header } from './src/components/Header';
+import { Calendar } from './src/components/Calendar';
+import { Container } from './src/components/Container';
+
 
 export default function App() {
+  const [fontLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_700Bold
+  })
+
+  if (!fontLoaded) {
+    return <></>
+  }
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Container>
+        <StatusBar style="auto" backgroundColor='transparent' />
+
+        <Header>
+          <Calendar />
+        </Header>
+      </Container>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
